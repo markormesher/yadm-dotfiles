@@ -1,19 +1,16 @@
-
 [user]
-	name = Mark Ormesher
-	email = mormesher@palantir.com
-	signingkey = DE308192D728C145
+  name = Mark Ormesher
 [core]
-	autocrlf = input
-	safecrlf = false
+  autocrlf = input
+  safecrlf = false
 [pull]
-	rebase = false
+  rebase = false
 [push]
-	default = current
+  default = current
 [filter "lfs"]
-	required = true
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-[commit]
-	gpgsign = true
+  required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+[include]
+  path = .gitconfig.local

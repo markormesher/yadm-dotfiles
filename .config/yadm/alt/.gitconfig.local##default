@@ -1,0 +1,5 @@
+[user]
+  email = me@markormesher.co.uk
+  signingkey = DE308192D728C145
+[commit]
+  gpgsign = true

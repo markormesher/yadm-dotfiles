@@ -1,0 +1,3 @@
+packagelock=false
+cafile=/etc/ssl/certs/ca-bundle.crt
+prefix=/Users/mormesher/.npm-packages
