@@ -1,2 +1,4 @@
 packagelock=false
-//registry.npmjs.org/:_authToken=${NPM_TOKEN}
+
+# TODO
+#//registry.npmjs.org/:_authToken=${NPM_TOKEN}
