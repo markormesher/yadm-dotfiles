@@ -1,10 +1,112 @@
 #! /usr/bin/env bash
 #set -euo pipefail
 
-SYSTEM_NAME=$(uname -s)
-
 # Interactive shells only
 [[ $- == *i* ]] || return
+
+#######################
+# Utils for this file #
+#######################
+
+TXT_BOLD="$(tput bold)"
+TXT_BLACK="$(tput setaf 0)"
+TXT_RED="$(tput setaf 1)"
+TXT_GREEN="$(tput setaf 2)"
+TXT_YELLOW="$(tput setaf 3)"
+TXT_MAGENTA="$(tput setaf 5)"
+TXT_CYAN="$(tput setaf 6)"
+TXT_RESET="$(tput sgr0)"
+
+function warn {
+  echo "${TXT_RED}Warning:${TXT_RESET} ${1}"
+}
+
+####################
+# $PATH management #
+####################
+
+PATH=""
+
+# core (more specific first to catch things like Brew packages)
+PATH="${PATH}:/usr/local/sbin"
+PATH="${PATH}:/usr/local/bin"
+PATH="${PATH}:/usr/sbin"
+PATH="${PATH}:/usr/bin"
+PATH="${PATH}:/sbin"
+PATH="${PATH}:/bin"
+
+# user-owned binaries
+PATH="${PATH}:${HOME}/bin"
+
+# ubuntu snap
+[ -d "/snap/bin" ] && PATH="${PATH}:/snap/bin"
+
+# node
+PATH="${PATH}:${HOME}/.npm-packages/bin"
+[ -d "/usr/local/opt/node@16/bin" ] && PATH="${PATH}:/usr/local/opt/node@16/bin"
+
+# sdk manager
+[ -d "${HOME}/.sdkman/candidates/java/current/bin" ] && PATH="${PATH}:${HOME}/.sdkman/candidates/java/current/bin"
+[ -d "${HOME}/.sdkman/candidates/kotlin/current/bin" ] && PATH="${PATH}:${HOME}/.sdkman/candidates/kotlin/current/bin"
+[ -d "${HOME}/.sdkman/candidates/gradle/current/bin" ] && PATH="${PATH}:${HOME}/.sdkman/candidates/gradle/current/bin"
+
+export PATH
+
+##############
+# Mac things #
+##############
+
+DEFAULT_BREW_PACKAGES=(
+  "bash-completion"
+  "colordiff"
+  "coreutils"
+  "findutils"
+  "gawk"
+  "git"
+  "gnu-getopt"
+  "gnu-indent"
+  "gnu-sed"
+  "gnu-tar"
+  "gnutls"
+  "grep"
+  "htop"
+  "jq"
+  "neovim"
+  "ranger"
+  "the_silver_searcher"
+  "tmux"
+  "yadm"
+)
+
+function running_on_mac {
+  [[ "$(uname -s)" == "Darwin" ]]
+}
+
+function check_brew {
+  running_on_mac && command -v brew &> /dev/null
+}
+
+function get_missing_brew_packages {
+  comm -13 <(brew leaves) <(printf '%s\n' "${DEFAULT_BREW_PACKAGES[@]}")
+}
+
+function check_brew_packages {
+  if running_on_mac && ! check_brew; then
+    warn "You're running on Mac without Brew installed - check out https://brew.sh/"
+  elif (get_missing_brew_packages | grep . &> /dev/null); then
+    warn "One or more default Brew packages are not installed - run install_brew_packages to get them"
+  fi
+}
+
+function install_brew_packages {
+  get_missing_brew_packages | while read package; do brew install ${package}; done
+}
+
+check_brew_packages
+
+#####################
+# Core Bash options #
+#####################
 
 # Don't put duplicate lines or lines starting with space in the history
 HISTCONTROL=ignoreboth
@@ -23,22 +125,13 @@ shopt -s checkwinsize
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # Better tab completion
-if command -v brew > /dev/null && [ -f "$(brew --prefix)/etc/bash_completion" ]; then
+if check_brew && [ -f "$(brew --prefix)/etc/bash_completion" ]; then
   source "$(brew --prefix)/etc/bash_completion"
 fi
 
 #################
 # Custom prompt #
 #################
-
-TXT_BOLD="$(tput bold)"
-TXT_BLACK="$(tput setaf 0)"
-TXT_RED="$(tput setaf 1)"
-TXT_GREEN="$(tput setaf 2)"
-TXT_YELLOW="$(tput setaf 3)"
-TXT_MAGENTA="$(tput setaf 5)"
-TXT_CYAN="$(tput setaf 6)"
-TXT_RESET="$(tput sgr0)"
 
 function git_info_for_prompt() {
   if git rev-parse 2> /dev/null; then
@@ -68,40 +161,6 @@ function custom_prompt() {
 
 custom_prompt
 
-####################
-# $PATH management #
-####################
-
-# core
-
-PATH="/bin"
-PATH="${PATH}:/sbin"
-PATH="${PATH}:/usr/bin"
-PATH="${PATH}:/usr/sbin"
-PATH="${PATH}:/usr/local/bin"
-PATH="${PATH}:/usr/local/sbin"
-
-# user-owner binaries
-
-PATH="${PATH}:${HOME}/bin"
-
-# ubuntu snap
-
-[ -d "/snap/bin" ] && PATH="${PATH}:/snap/bin"
-
-# node
-
-PATH="${PATH}:${HOME}/.npm-packages/bin"
-[ -d "/usr/local/opt/node@16/bin" ] && PATH="${PATH}:/usr/local/opt/node@16/bin"
-
-# sdk manager
-
-[ -d "${HOME}/.sdkman/candidates/java/current/bin" ] && PATH="${PATH}:${HOME}/.sdkman/candidates/java/current/bin"
-[ -d "${HOME}/.sdkman/candidates/kotlin/current/bin" ] && PATH="${PATH}:${HOME}/.sdkman/candidates/kotlin/current/bin"
-[ -d "${HOME}/.sdkman/candidates/gradle/current/bin" ] && PATH="${PATH}:${HOME}/.sdkman/candidates/gradle/current/bin"
-
-export PATH
-
 ###################################
 # Per-service exports and aliases #
 ###################################
@@ -112,32 +171,38 @@ alias ..='cd ..'
 alias cp='rsync -avz --progress'
 alias sum="paste -sd+ - | bc"
 
-if [[ "${SYSTEM_NAME}" == "Darwin" ]]; then
-  alias awk='gawk'
-  alias date='gdate'
-  alias df='gdf'
-  alias du='gdu'
-  alias find='gfind'
-  alias head='ghead'
-  alias readlink='greadlink'
-  alias sed='gsed'
-  alias shuf='gshuf'
-  alias split='gsplit'
-  alias stat='gstat'
-  alias tail='gtail'
-  alias tar='gtar'
-  alias xargs='gxargs'
+if command -v apt &> /dev/null; then
+  alias apt='sudo apt'
+fi
+
+# use the GNU versions of tools where possible (requires some brew packages)
+if running_on_mac; then
+  if check_brew && ! (brew leaves | grep coreutils > /dev/null); then
+    warn "GNU utils are not installed - some parts of .bashrc may not work correctly"
+    echo "Run install_brew_packages to install the missing packages"
+  else
+    alias awk='gawk'
+    alias date='gdate'
+    alias df='gdf'
+    alias du='gdu'
+    alias find='gfind'
+    alias head='ghead'
+    alias readlink='greadlink'
+    alias sed='gsed'
+    alias shuf='gshuf'
+    alias split='gsplit'
+    alias stat='gstat'
+    alias tail='gtail'
+    alias tar='gtar'
+    alias xargs='gxargs'
+  fi
 
   export CLICOLOR=1
   export LSCOLORS=GxFxCxDxBxegedabagaced
   export BASH_SILENCE_DEPRECATION_WARNING=1
 fi
 
-if command -v apt &> /dev/null; then
-  alias apt='sudo apt'
-fi
-
-if [[ "${SYSTEM_NAME}" == "Darwin" ]]; then
+if running_on_mac; then
   alias l='gls --color=auto -h --group-directories-first'
   alias ls='gls --color=auto -h --group-directories-first'
   alias ll='gls -la --color=auto -h --group-directories-first'
@@ -147,14 +212,14 @@ else
   alias ll='ls -la --color=auto -h --group-directories-first'
 fi
 
-if [[ "${SYSTEM_NAME}" == "Darwin" ]]; then
+if running_on_mac; then
   alias grep='ggrep --color=auto'
   alias egrep='gegrep --color=auto'
-  command -v colordiff &>/dev/null && alias diff='colordiff -W$(( $(tput cols) - 2 ))'
+  command -v colordiff &>/dev/null && alias diff='colordiff -y -W$(( $(tput cols) - 2 ))'
 else
   alias grep='grep --color=auto'
   alias egrep='egrep --color=auto'
-  alias diff='diff --color -W $(( $(tput cols) - 2 ))'
+  alias diff='diff -y --color -W $(( $(tput cols) - 2 ))'
 fi
 
 # docker
