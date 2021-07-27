@@ -91,10 +91,12 @@ function get_missing_brew_packages {
 }
 
 function check_brew_packages {
-  if running_on_mac && ! check_brew; then
-    warn "You're running on Mac without Brew installed - check out https://brew.sh/"
-  elif (get_missing_brew_packages | grep . &> /dev/null); then
-    warn "One or more default Brew packages are not installed - run install_brew_packages to get them"
+  if running_on_mac; then
+    if ! check_brew; then
+      warn "You're running on Mac without Brew installed - check out https://brew.sh/"
+    elif (get_missing_brew_packages | grep . &> /dev/null); then
+      warn "One or more default Brew packages are not installed - run install_brew_packages to get them"
+    fi
   fi
 }
 
