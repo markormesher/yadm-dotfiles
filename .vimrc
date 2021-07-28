@@ -101,6 +101,7 @@ let NERDTreeShowHidden=1 " always show dot files
 let NERDTreeQuitOnOpen=1 " quit NERDTree after opening a file
 map <Leader>m :NERDTreeToggle<CR>
 map <Leader>n :NERDTreeFind<CR>
+autocmd BufEnter NERD_tree_* | execute 'normal R'
 
 " FZF file finder settings
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -l -g ""'
