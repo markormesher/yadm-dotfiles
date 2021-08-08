@@ -72,6 +72,7 @@ DEFAULT_BREW_PACKAGES=(
   "htop"
   "jq"
   "neovim"
+  "node"
   "ranger"
   "the_silver_searcher"
   "tmux"
