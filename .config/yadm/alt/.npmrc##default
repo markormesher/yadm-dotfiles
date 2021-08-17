@@ -1,4 +1,2 @@
 packagelock=false
-
-# TODO
-#//registry.npmjs.org/:_authToken=${NPM_TOKEN}
+prefix=${HOME}/.npm-packages

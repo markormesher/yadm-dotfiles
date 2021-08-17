@@ -1,3 +1,3 @@
 packagelock=false
+prefix=${HOME}/.npm-packages
 cafile=/etc/ssl/certs/ca-bundle.crt
-prefix=/Users/mormesher/.npm-packages
