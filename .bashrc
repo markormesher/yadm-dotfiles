@@ -76,6 +76,7 @@ DEFAULT_BREW_PACKAGES=(
   "ranger"
   "the_silver_searcher"
   "tmux"
+  "wget"
   "yadm"
 )
 
