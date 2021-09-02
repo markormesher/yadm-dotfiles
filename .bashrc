@@ -89,7 +89,8 @@ function check_brew {
 }
 
 function get_missing_brew_packages {
-  comm -13 <(brew leaves) <(printf '%s\n' "${DEFAULT_BREW_PACKAGES[@]}")
+  touch "${HOME}/.last-brew-leaves"
+  comm -13 <(cat "${HOME}/.last-brew-leaves") <(printf '%s\n' "${DEFAULT_BREW_PACKAGES[@]}")
 }
 
 function check_brew_packages {
@@ -104,6 +105,7 @@ function check_brew_packages {
 
 function install_brew_packages {
   get_missing_brew_packages | while read package; do brew install ${package}; done
+  brew leaves > "${HOME}/.last-brew-leaves"
 }
 
 check_brew_packages
@@ -181,7 +183,7 @@ fi
 
 # use the GNU versions of tools where possible (requires some brew packages)
 if running_on_mac; then
-  if check_brew && ! (brew leaves | grep coreutils > /dev/null); then
+  if check_brew && ! (cat "${HOME}/.last-brew-leaves" | grep coreutils > /dev/null); then
     warn "GNU utils are not installed - some parts of .bashrc may not work correctly"
     echo "Run install_brew_packages to install the missing packages"
   else
