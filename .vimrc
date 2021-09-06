@@ -61,7 +61,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-commentary' " gcc to (un-)comment a line, gc to (un-)comment a visual selection
 Plug 'tpope/vim-sleuth' " detect the indentation style for a file and adjust settings accordingly
 Plug 'alvan/vim-closetag' " auto close XML/HTML tags
-Plug 'jiangmiao/auto-pairs' " pairing for quotes, brackets, etc.
 Plug 'ntpeters/vim-better-whitespace' " highlight trailing whitespace and provides :StripWhitespace helper
 Plug 'unblevable/quick-scope' " highlight good options for f and F navigation within a line
 
@@ -108,6 +107,9 @@ let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -l -g ""'
 map <Leader>, :Files<CR>
 map <Leader>. :Ag<CR>
 
+" <Ctrl-l> redraws the screen and removes any search highlighting.
+map <Leader>c :nohl<CR>
+
 " shortcut for floaterm
 nnoremap <silent> <C-Space> :FloatermToggle<CR>
 tnoremap <silent> <C-Space> <C-\><C-n>:FloatermToggle<CR>
@@ -129,7 +131,8 @@ let g:coc_global_extensions = [
 \ 'coc-java',
 \ 'coc-sh',
 \ 'coc-diagnostic',
-\ 'coc-spell-checker'
+\ 'coc-spell-checker',
+\ 'coc-pairs'
 \ ]
 nmap <silent> g[ <Plug>(coc-diagnostic-prev)
 nmap <silent> g] <Plug>(coc-diagnostic-next)

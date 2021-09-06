@@ -29,8 +29,11 @@
 
   "diagnostic-languageserver.filetypes": {
     "sh": "shellcheck",
-    "markdown": "markdownlint",
+    "markdown": "markdownlint"
   },
+
+  // auto pair all types apart from <>, which interferes with HTML tag closing from alvan/vim-closetag
+  "pairs.enableCharacters": ["(", "[", "{", "'", "\"", "`"],
 
   // eslint
   "eslint.packageManager": "yarn",
