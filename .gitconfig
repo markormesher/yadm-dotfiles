@@ -16,3 +16,5 @@
   path = .gitconfig.local
 [init]
   defaultBranch = main
+[fetch]
+  prune = true
