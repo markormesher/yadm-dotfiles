@@ -1,4 +1,3 @@
-
 set nocompatible
 syntax on
 
@@ -63,6 +62,7 @@ Plug 'tpope/vim-sleuth' " detect the indentation style for a file and adjust set
 Plug 'alvan/vim-closetag' " auto close XML/HTML tags
 Plug 'ntpeters/vim-better-whitespace' " highlight trailing whitespace and provides :StripWhitespace helper
 Plug 'unblevable/quick-scope' " highlight good options for f and F navigation within a line
+Plug 'easymotion/vim-easymotion' " enable quick jumping, especially with b/w motions
 
 " TS language support
 Plug 'leafgarland/typescript-vim'
@@ -104,8 +104,11 @@ autocmd BufEnter NERD_tree_* | execute 'normal R'
 
 " FZF file finder settings
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -l -g ""'
-map <Leader>, :Files<CR>
+noremap <Leader>, :Files<CR>
 map <Leader>. :Ag<CR>
+
+" easymotion trigger (default is <Leader><Leader>, which triggers FZF)
+map <Leader> <Plug>(easymotion-prefix)
 
 " <Ctrl-l> redraws the screen and removes any search highlighting.
 map <Leader>c :nohl<CR>
