@@ -89,11 +89,11 @@ let g:vimwiki_global_ext = 0
 let g:vimwiki_auto_header = 1
 let g:vimwiki_table_mappings = 0
 let g:vimwiki_list = [{
-\ 'path': '~/vimwiki/',
-\ 'syntax': 'markdown',
-\ 'ext': '.md',
-\ 'auto_diary_index': 1
-\ }]
+      \ 'path': '~/vimwiki/',
+      \ 'syntax': 'markdown',
+      \ 'ext': '.md',
+      \ 'auto_diary_index': 1
+      \ }]
 
 " NERDTree settings
 let NERDTreeShowHidden=1 " always show dot files
@@ -124,19 +124,19 @@ let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.tsx'
 
 " coc settings (more settings in ~/.config/nvim/coc-settings.json)
 let g:coc_global_extensions = [
-\ 'coc-tsserver',
-\ 'coc-html',
-\ 'coc-css',
-\ 'coc-json',
-\ 'coc-yaml',
-\ 'coc-eslint',
-\ 'coc-prettier',
-\ 'coc-java',
-\ 'coc-sh',
-\ 'coc-diagnostic',
-\ 'coc-spell-checker',
-\ 'coc-pairs'
-\ ]
+      \ 'coc-tsserver',
+      \ 'coc-html',
+      \ 'coc-css',
+      \ 'coc-json',
+      \ 'coc-yaml',
+      \ 'coc-eslint',
+      \ 'coc-prettier',
+      \ 'coc-java',
+      \ 'coc-sh',
+      \ 'coc-diagnostic',
+      \ 'coc-spell-checker',
+      \ 'coc-pairs'
+      \ ]
 nmap <silent> g[ <Plug>(coc-diagnostic-prev)
 nmap <silent> g] <Plug>(coc-diagnostic-next)
 nmap <silent> gd <Plug>(coc-definition)
@@ -145,6 +145,7 @@ nmap <silent> gr <Plug>(coc-references)
 nmap <Leader>rn <Plug>(coc-rename)
 nmap <Leader>gt :<C-u>CocList outline<cr>
 map <Leader>f :CocFix<CR>
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 " formatters
 au FileType javascript setlocal formatprg=prettier
@@ -155,7 +156,8 @@ au FileType scss setlocal formatprg=prettier\ --parser\ css
 au FileType css setlocal formatprg=prettier\ --parser\ css
 
 " auto-format on exit
-:autocmd BufWritePost * :StripWhitespace
+:autocmd BufWritePre * :StripWhitespace
+:autocmd BufWritePost *.js,*.jsx,*.ts,*.tsx,*.yml,*.yaml,*.json,*.html,*.css,*.scss :Prettier
 
 " colour scheme + edits
 let g:dracula_colorterm = 0
