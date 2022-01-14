@@ -23,4 +23,4 @@ fi
 echo "Creating destination volume \"$2\"..."
 docker volume create --name $2
 echo "Copying data from source volume \"$1\" to destination volume \"$2\"..."
-docker run --rm -i -t -v $1:/from -v $2:/to alpine ash -c "cd /from ; cp -av . /to"
+docker run --rm -t -v $1:/from -v $2:/to alpine ash -c "cd /from ; cp -av . /to"
