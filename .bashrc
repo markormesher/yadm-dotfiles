@@ -58,6 +58,7 @@ export PATH
 
 DEFAULT_BREW_PACKAGES=(
   "bash-completion"
+  "blueutil"
   "colordiff"
   "coreutils"
   "findutils"
@@ -74,6 +75,7 @@ DEFAULT_BREW_PACKAGES=(
   "neovim"
   "node"
   "ranger"
+  "sleepwatcher"
   "the_silver_searcher"
   "tmux"
   "wget"
