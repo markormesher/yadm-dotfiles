@@ -76,8 +76,6 @@ Plug 'neoclide/coc.nvim', { 'branch': 'release', 'do': { -> coc#util#install() }
 
 " colour schemes
 Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'morhetz/gruvbox'
-Plug 'arcticicestudio/nord-vim'
 
 " general UI
 Plug 'blueyed/vim-diminactive' " dim inactive vim windows
