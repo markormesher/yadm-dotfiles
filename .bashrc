@@ -116,6 +116,8 @@ check_brew_packages
 # Core Bash options #
 #####################
 
+TERM=xterm-256color
+
 # Don't put duplicate lines or lines starting with space in the history
 HISTCONTROL=ignoreboth
 
