@@ -171,6 +171,11 @@ function custom_prompt() {
 
 custom_prompt
 
+# direnv hook needs to be after any custom prompt work
+if command -v direnv &> /dev/null; then
+  eval "$(direnv hook bash)"
+fi
+
 ###################################
 # Per-service exports and aliases #
 ###################################
