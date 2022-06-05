@@ -17,6 +17,10 @@ set ignorecase
 " keep undo history even after exiting
 set undofile
 
+" some servers have issues with backup files
+set nobackup
+set nowritebackup
+
 " default tab size of 2 spaces (may be overwritten by vim-sleuth)
 set expandtab
 set tabstop=2
@@ -32,9 +36,14 @@ set number relativenumber
 " always show the sign column to avoid janky changes when signs appear/disappear
 set signcolumn=yes
 
-" keep the cursor X lines away from the top and bottom of the window (except
-" for the start and end of files)
+" keep the cursor X lines away from the top and bottom of the window (except for the start and end of files)
 set scrolloff=10
+
+" more space for messages
+set cmdheight=2
+
+" don't pass messages to |ins-completion-menu|.
+set shortmess+=c
 
 " set file types
 filetype plugin on
@@ -137,8 +146,7 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gr <Plug>(coc-references)
 nmap <Leader>rn <Plug>(coc-rename)
-nmap <Leader>gt :<C-u>CocList outline<cr>
-map <Leader>f :CocFix<CR>
+map <Leader>f <Plug>(coc-fix-current)
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 " formatters
