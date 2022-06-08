@@ -146,7 +146,7 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gr <Plug>(coc-references)
 nmap <Leader>rn <Plug>(coc-rename)
-map <Leader>f <Plug>(coc-fix-current)
+map <Leader>f <Plug>(coc-codeaction-line)
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 " formatters
