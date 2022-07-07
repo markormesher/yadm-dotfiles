@@ -113,8 +113,8 @@ let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -l -g ""'
 noremap <Leader>, :Files<CR>
 map <Leader>. :Ag<CR>
 
-" <Ctrl-l> redraws the screen and removes any search highlighting.
-map <Leader>c :nohl<CR>
+" <leader>-c redraws the screen and removes any search highlighting.
+map <Leader>c :nohl<CR> :redraw!<CR>
 
 " shortcut for floaterm
 nnoremap <silent> <C-Space> :FloatermToggle<CR>
