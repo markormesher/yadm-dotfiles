@@ -277,6 +277,14 @@ function gw {
 
 # TODO: gradle opts
 
+# k3s
+
+if command -v k3s &> /dev/null; then
+  alias kubectl="k3s kubectl"
+  source <(k3s completion bash)
+  source <(k3s kubectl completion bash)
+fi
+
 # node
 
 NPM_PACKAGES="${HOME}/.npm-packages"
