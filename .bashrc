@@ -297,10 +297,14 @@ if which npm > /dev/null && ! which npm | grep "${NPM_PACKAGES}"; then
   $ORIGINAL_NPM config set prefix "${NPM_PACKAGES}"
 fi
 
-alias npm='${NPM_PACKAGES}/bin/npm'
-alias npx='${NPM_PACKAGES}/bin/npx'
-alias yarn='${NPM_PACKAGES}/bin/yarn'
-alias yarnpkg='${NPM_PACKAGES}/bin/yarnpkg'
+if [ ! -f "${NPM_PACKAGES}/bin/yarn" ]; then
+  warn "NPM/Yarn are not globally installed; run '${ORIGINAL_NPM} install --location=global npm yarn' to resolve"
+else
+  alias yarn='${NPM_PACKAGES}/bin/yarn'
+  alias yarnpkg='${NPM_PACKAGES}/bin/yarnpkg'
+  alias npm='${NPM_PACKAGES}/bin/npm'
+  alias npx='${NPM_PACKAGES}/bin/npx'
+fi
 
 # SDK manager
 
