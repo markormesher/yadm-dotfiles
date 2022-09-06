@@ -243,7 +243,7 @@ alias dkps="docker ps --format '{{.ID}} ~ {{.Names}} ~ {{.Status}} ~ {{.Image}}'
 if command -v docker-compose &> /dev/null; then
   alias dc='docker-compose'
 else
-  echo "docker-compose is not on the path yet"
+  alias dc='echo "docker-compose is not on the path yet"'
 fi
 
 # git
