@@ -147,19 +147,10 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gr <Plug>(coc-references)
 nmap <Leader>rn <Plug>(coc-rename)
 map <Leader>f <Plug>(coc-codeaction-line)
-command! -nargs=0 Prettier :CocCommand prettier.formatFile
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
 
-" formatters
-au FileType javascript setlocal formatprg=prettier
-au FileType javascript.jsx setlocal formatprg=prettier
-au FileType typescript setlocal formatprg=prettier\ --parser\ typescript
-au FileType html setlocal formatprg=js-beautify\ --type\ html
-au FileType scss setlocal formatprg=prettier\ --parser\ css
-au FileType css setlocal formatprg=prettier\ --parser\ css
-
-" auto-format on exit
+" strip whitespace just before saving files
 :autocmd BufWritePre * :StripWhitespace
-:autocmd BufWritePost *.js,*.jsx,*.ts,*.tsx,*.yml,*.yaml,*.json,*.html,*.css,*.scss :Prettier
 
 " colour scheme + edits
 let g:dracula_colorterm = 0
