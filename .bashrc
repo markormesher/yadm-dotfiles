@@ -106,7 +106,7 @@ function check_brew_packages {
 }
 
 function install_brew_packages {
-  get_missing_brew_packages | while read package; do brew install ${package}; done
+  get_missing_brew_packages | while read -r package; do brew install "${package}"; done
   brew leaves > "${HOME}/.last-brew-leaves"
 }
 
@@ -317,20 +317,31 @@ alias tm="tmux attach || tmux new -s main"
 
 # vim
 
-export EDITOR='nvim'
-alias v='nvim'
-alias vim='nvim'
+real_nvim=$(which nvim)
+
+function start_vim() {
+  if running_on_mac || [ -e /dev/fuse ]; then
+    $real_nvim "$@"
+  else
+    $real_nvim --appimage-extract-and-run "$@"
+  fi
+}
+
+export EDITOR='start_vim'
+alias v='start_vim'
+alias vim='start_vim'
+alias nvim='start_vim'
 
 function vw {
   old_path="$(pwd)"
-  cd ~/vimwiki
+  cd ~/vimwiki || exit 1
   nvim +:VimwikiIndex
-  cd "$old_path"
+  cd "$old_path" || exit 1
 }
 
 function vd {
   old_path="$(pwd)"
-  cd ~/vimwiki
+  cd ~/vimwiki || exit 1
   nvim +:VimwikiMakeDiaryNote
-  cd "$old_path"
+  cd "$old_path" || exit 1
 }
