@@ -133,6 +133,7 @@ shopt -s checkwinsize
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # Better tab completion
+[ -f /etc/bash_completion ] && source /etc/bash_completion
 if check_brew && [ -f "$(brew --prefix)/etc/bash_completion" ]; then
   source "$(brew --prefix)/etc/bash_completion"
 fi
