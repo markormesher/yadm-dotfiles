@@ -318,20 +318,10 @@ alias tm="tmux attach || tmux new -s main"
 
 # vim
 
-real_nvim=$(which nvim)
-
-function start_vim() {
-  if running_on_mac || [ -e /dev/fuse ]; then
-    $real_nvim "$@"
-  else
-    $real_nvim --appimage-extract-and-run "$@"
-  fi
-}
-
-export EDITOR='start_vim'
-alias v='start_vim'
-alias vim='start_vim'
-alias nvim='start_vim'
+export EDITOR="${HOME}/bin/start_vim"
+alias v='${HOME}/bin/start_vim'
+alias vim='${HOME}/bin/start_vim'
+alias nvim='${HOME}/bin/start_vim'
 
 function vw {
   old_path="$(pwd)"
