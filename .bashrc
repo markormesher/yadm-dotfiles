@@ -58,10 +58,11 @@ export PATH
 
 DEFAULT_BREW_PACKAGES=(
   "bash-completion"
-  "blueutil"
   "colordiff"
   "coreutils"
   "findutils"
+  "fd"
+  "font-hack-nerd-font"
   "gawk"
   "git"
   "gnu-getopt"
@@ -74,9 +75,7 @@ DEFAULT_BREW_PACKAGES=(
   "jq"
   "neovim"
   "node"
-  "ranger"
-  "sleepwatcher"
-  "the_silver_searcher"
+  "ripgrep"
   "tmux"
   "wget"
   "yadm"
