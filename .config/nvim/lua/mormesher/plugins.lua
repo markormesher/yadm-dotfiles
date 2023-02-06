@@ -17,6 +17,47 @@ require("packer").startup(function(use)
   use "wbthomason/packer.nvim"
 
   --
+  -- UI
+  --
+
+  -- colourscheme
+  use("dracula/vim")
+
+  -- notifications
+  use("rcarriga/nvim-notify")
+
+  -- status line
+  use({
+    "nvim-lualine/lualine.nvim",
+    requires = {
+      { "nvim-tree/nvim-web-devicons" }
+    },
+    config = function()
+      require("lualine").setup({
+        inactive_sections = {
+          lualine_a = {},
+          lualine_b = {},
+          lualine_c = { "filename" },
+          lualine_x = {},
+          lualine_y = {},
+          lualine_z = {}
+        },
+        sections = {
+          lualine_a = { "mode" },
+          lualine_b = { "branch", "diagnostics" },
+          lualine_c = { "filename" },
+          lualine_x = { "filetype" },
+          lualine_y = { "searchcount" },
+          lualine_z = { "progress", "location" }
+        }
+      })
+    end
+  })
+
+  -- show marks in the gutter
+  use("kshenoy/vim-signature")
+
+  --
   -- language integration
   --
 
@@ -63,39 +104,18 @@ require("packer").startup(function(use)
     "hrsh7th/nvim-cmp",
     requires = {
       -- snippet engine
-      { "L3MON4D3/LuaSnip" },
+      {
+        "L3MON4D3/LuaSnip",
+        requires = {
+          { "saadparwaiz1/cmp_luasnip" }
+        }
+      },
 
       -- completion sources
       { "hrsh7th/cmp-buffer" },
       { "hrsh7th/cmp-nvim-lsp" },
     }
   });
-
-  --
-  -- UI
-  --
-
-  -- colourscheme
-  use({
-    "dracula/vim",
-    config = function()
-      cmd("colorscheme dracula")
-    end
-  })
-
-  -- status line
-  use({
-    "nvim-lualine/lualine.nvim",
-    requires = {
-      { "nvim-tree/nvim-web-devicons" }
-    },
-    config = function()
-      require("lualine").setup()
-    end
-  })
-
-  -- show marks in the gutter
-  use("kshenoy/vim-signature")
 
   --
   -- general typing tools
@@ -118,14 +138,8 @@ require("packer").startup(function(use)
   })
 
   -- highlight good options for navigation within a line
-  use({
-    "unblevable/quick-scope",
-    config = function()
-      -- TODO: this doesn't seem to work
-      vim.api.nvim_set_hl(0, "QuickScopePrimary", { underline = true })
-      vim.api.nvim_set_hl(0, "QuickScopeSecondary", { underline = true, italic = true })
-    end
-  })
+  -- note: formatting overrides are applied in ./options.lua where the colourscheme is set
+  use("unblevable/quick-scope")
 
   --
   -- tools

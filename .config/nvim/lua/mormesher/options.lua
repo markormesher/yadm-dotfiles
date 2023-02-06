@@ -4,6 +4,26 @@ vim.g.mapleader = ","
 
 local opt = vim.opt
 
+-- better colour support
+opt.termguicolors = true
+
+-- set a default colour scheme first, then set the one we really want
+cmd("colorscheme elflord")
+cmd("colorscheme dracula")
+
+-- colourscheme overrides
+vim.api.nvim_set_hl(0, "QuickScopePrimary", { underline = true })
+vim.api.nvim_set_hl(0, "QuickScopeSecondary", { underline = true, italic = true })
+
+-- notification provider
+local notify_ok, notify = check_plugin("notify")
+if (notify_ok) then
+  notify.setup({
+    stages = "slide"
+  })
+  vim.notify = notify
+end
+
 -- no mouse
 opt.mouse = nil
 
@@ -33,9 +53,6 @@ opt.shiftwidth = 2
 -- hide buffers when abandoned
 opt.hidden = true
 
--- better colour support
-opt.termguicolors = true
-
 -- show current line number and relative numbers on other lines
 opt.number = true
 opt.relativenumber = true
@@ -46,9 +63,8 @@ opt.signcolumn = "yes"
 -- keep the cursor X lines away from the top and bottom of the window (except for the start and end of files)
 opt.scrolloff = 10
 
--- more space for messages
--- TODO: can I make this zero?
-opt.cmdheight = 2
+-- hide bottom command bar
+opt.cmdheight = 0
 
 -- don't pass messages to |ins-completion-menu|.
 opt.shortmess:append "c"
