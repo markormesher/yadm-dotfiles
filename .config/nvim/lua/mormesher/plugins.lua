@@ -171,38 +171,18 @@ require("packer").startup(function(use)
 
   -- fuzzy search
   use({
-    "nvim-telescope/telescope.nvim",
+    "ibhagwan/fzf-lua",
     requires = {
+      { "nvim-tree/nvim-web-devicons" },
       {
-        "nvim-lua/plenary.nvim"
+        "junegunn/fzf",
+        run = "./install --bin"
       }
     },
     config = function()
-      -- TODO: gitignore is not ignored
-      local telescope = require("telescope")
-      local telescope_actions = require("telescope.actions")
-      telescope.setup({
-        defaults = {
-          mappings = {
-            i = {
-              ["<esc>"] = telescope_actions.close
-            }
-          }
-        },
-        pickers = {
-          find_files = {
-            hidden = true
-          },
-          live_grep = {
-            hidden = true
-          }
-        }
-      })
-
-      local builtin_pickers = require("telescope.builtin")
-      keymap.set("n", "<leader>,", builtin_pickers.find_files)
-      keymap.set("n", "<leader>.", builtin_pickers.live_grep)
-    end,
+      keymap.set("n", "<leader>,", "<cmd>:FzfLua files<cr>")
+      keymap.set("n", "<leader>.", "<cmd>:FzfLua live_grep<cr>")
+    end
   })
 
   --
