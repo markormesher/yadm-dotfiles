@@ -92,6 +92,12 @@ if (lsp_ok and cmp_nvim_lsp) then
   lsp.tsserver.setup({
     -- TODO: imports not being shown from other files in the project
     capabilities = cmp_capabilities,
+    init_options = {
+      preferences = {
+        importModuleSpecifierPreference = "relative",
+        jsxAttributeCompletionStyle = "braces"
+      },
+    },
     filetypes = {
       "javascript",
       "javascriptreact",
