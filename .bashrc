@@ -57,11 +57,12 @@ export PATH
 ##############
 
 DEFAULT_BREW_PACKAGES=(
+  # keep this sorted
   "bash-completion"
   "colordiff"
   "coreutils"
-  "findutils"
   "fd"
+  "findutils"
   "font-hack-nerd-font"
   "gawk"
   "git"
@@ -90,8 +91,8 @@ function check_brew {
 }
 
 function get_missing_brew_packages {
-  touch "${HOME}/.last-brew-leaves"
-  comm -13 <(cat "${HOME}/.last-brew-leaves") <(printf '%s\n' "${DEFAULT_BREW_PACKAGES[@]}")
+  touch "${HOME}/.last-brew-list"
+  comm -13 <(cat "${HOME}/.last-brew-list") <(printf '%s\n' "${DEFAULT_BREW_PACKAGES[@]}")
 }
 
 function check_brew_packages {
@@ -100,13 +101,14 @@ function check_brew_packages {
       warn "You're running on Mac without Brew installed - check out https://brew.sh/"
     elif (get_missing_brew_packages | grep . &> /dev/null); then
       warn "One or more default Brew packages are not installed - run install_brew_packages to get them"
+      get_missing_brew_packages
     fi
   fi
 }
 
 function install_brew_packages {
   get_missing_brew_packages | while read -r package; do brew install "${package}"; done
-  brew leaves > "${HOME}/.last-brew-leaves"
+  brew list | sort > "${HOME}/.last-brew-list"
 }
 
 check_brew_packages
@@ -190,7 +192,7 @@ fi
 
 # use the GNU versions of tools where possible (requires some brew packages)
 if running_on_mac; then
-  if check_brew && ! (cat "${HOME}/.last-brew-leaves" | grep coreutils > /dev/null); then
+  if check_brew && ! (cat "${HOME}/.last-brew-list" | grep coreutils > /dev/null); then
     warn "GNU utils are not installed - some parts of .bashrc may not work correctly"
     echo "Run install_brew_packages to install the missing packages"
   else
