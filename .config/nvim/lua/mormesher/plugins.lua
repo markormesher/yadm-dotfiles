@@ -21,7 +21,7 @@ require("packer").startup(function(use)
   --
 
   -- colourscheme
-  use("dracula/vim")
+  use({"catppuccin/vim", as = "catppuccin" })
 
   -- notifications
   use("rcarriga/nvim-notify")

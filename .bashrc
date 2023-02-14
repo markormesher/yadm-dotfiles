@@ -52,6 +52,15 @@ PATH="${PATH}:${HOME}/.npm-packages/bin"
 
 export PATH
 
+##################
+# Terminal setup #
+##################
+
+if [ ! -z ${TMUX+x} ] && [ -f ~/.tmux/catppuccin-mocha.tmuxtheme ] && [ -f ~/.tmux/catppuccin.tmux ]; then
+  source ~/.tmux/catppuccin-mocha.tmuxtheme
+  source ~/.tmux/catppuccin.tmux
+fi
+
 ##############
 # Mac things #
 ##############
