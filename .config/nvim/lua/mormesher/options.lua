@@ -9,7 +9,7 @@ opt.termguicolors = true
 
 -- set a default colour scheme first, then set the one we really want
 cmd("colorscheme elflord")
-cmd("colorscheme catppuccin_mocha")
+cmd("colorscheme dracula")
 
 -- colourscheme overrides
 vim.api.nvim_set_hl(0, "QuickScopePrimary", { underline = true })
