@@ -154,7 +154,7 @@ require("packer").startup(function(use)
     config = function()
       require("nvim-tree").setup({
         git = {
-          enable = true,
+          enable = false,
         },
         actions = {
           open_file = {
