@@ -79,6 +79,7 @@ require("packer").startup(function(use)
           "json",
           "lua",
           "markdown",
+          "markdown_inline",
           "scss",
           "typescript",
           "vim",
@@ -94,7 +95,6 @@ require("packer").startup(function(use)
     end
   })
 
-  -- language server
   use("neovim/nvim-lspconfig")
   use("jose-elias-alvarez/null-ls.nvim")
   use("glepnir/lspsaga.nvim")
@@ -113,6 +113,7 @@ require("packer").startup(function(use)
 
       -- completion sources
       { "hrsh7th/cmp-buffer" },
+      { "hrsh7th/cmp-path" },
       { "hrsh7th/cmp-nvim-lsp" },
     }
   });

@@ -44,10 +44,10 @@ end
 -- Vim diagnostic settings
 --
 
-vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "LspDiagnosticsDefaultError" })
-vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "LspDiagnosticsDefaultWarning" })
-vim.fn.sign_define("DiagnosticSignInfo", { text = "", texthl = "LspDiagnosticsDefaultInformation" })
-vim.fn.sign_define("DiagnosticSignHint", { text = "󰌶", texthl = "LspDiagnosticsDefaultHint" })
+vim.fn.sign_define("DiagnosticSignError", { text = "✘", texthl = "LspDiagnosticsDefaultError" })
+vim.fn.sign_define("DiagnosticSignWarn", { text = "▲", texthl = "LspDiagnosticsDefaultWarning" })
+vim.fn.sign_define("DiagnosticSignInfo", { text = "⚑", texthl = "LspDiagnosticsDefaultInformation" })
+vim.fn.sign_define("DiagnosticSignHint", { text = "»", texthl = "LspDiagnosticsDefaultHint" })
 vim.diagnostic.config({
   severity_sort = true,
   virtual_text = {
@@ -90,7 +90,6 @@ if (lsp_ok and cmp_nvim_lsp) then
 
   -- typescript
   lsp.tsserver.setup({
-    -- TODO: imports not being shown from other files in the project
     capabilities = cmp_capabilities,
     init_options = {
       preferences = {
@@ -137,6 +136,7 @@ if (cmp_ok and luasnip_ok) then
     },
     sources = {
       { name = "nvim_lsp" },
+      { name = "path" },
       {
         name = "buffer",
         option = {
