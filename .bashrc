@@ -45,11 +45,6 @@ PATH="${PATH}:${HOME}/bin"
 PATH="${PATH}:${HOME}/.npm-packages/bin"
 [ -d "/usr/local/opt/node@16/bin" ] && PATH="${PATH}:/usr/local/opt/node@16/bin"
 
-# sdk manager
-[ -d "${HOME}/.sdkman/candidates/java/current/bin" ] && PATH="${PATH}:${HOME}/.sdkman/candidates/java/current/bin"
-[ -d "${HOME}/.sdkman/candidates/kotlin/current/bin" ] && PATH="${PATH}:${HOME}/.sdkman/candidates/kotlin/current/bin"
-[ -d "${HOME}/.sdkman/candidates/gradle/current/bin" ] && PATH="${PATH}:${HOME}/.sdkman/candidates/gradle/current/bin"
-
 export PATH
 
 ##############
