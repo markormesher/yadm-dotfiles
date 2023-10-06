@@ -74,7 +74,7 @@ if (lsp_ok and cmp_nvim_lsp) then
       -- eslint doesn"t support autoFixOnSave, so run EslintFixAll instead
       vim.api.nvim_create_autocmd("BufWritePre", {
         group = vim.api.nvim_create_augroup("eslint_lsp", {}),
-        pattern = { "*.tsx", "*.ts", "*.jsx", "*.js", },
+        pattern = { "*.ts", "*.tsx", "*.js", "*.jsx", "*.cjs", "*.cjsx", "*.mjs", "*.mjsx" },
         command = "EslintFixAll",
       })
     end,
