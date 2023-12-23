@@ -73,7 +73,7 @@ require("packer").startup(function(use)
         auto_install = true,
         ensure_installed = {
           "css",
-          "help",
+          "hcl",
           "html",
           "javascript",
           "json",
@@ -83,6 +83,7 @@ require("packer").startup(function(use)
           "scss",
           "typescript",
           "vim",
+          "vimdoc",
           "yaml",
         },
         highlight = {
