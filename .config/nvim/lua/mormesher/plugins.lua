@@ -74,6 +74,8 @@ require("packer").startup(function(use)
         ensure_installed = {
           "css",
           "hcl",
+          "go",
+          "gomod",
           "html",
           "javascript",
           "json",

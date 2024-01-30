@@ -36,6 +36,7 @@ PATH="${PATH}:/sbin"
 PATH="${PATH}:/bin"
 
 # user-owned binaries
+PATH="${PATH}:${HOME}/go/bin"
 PATH="${PATH}:${HOME}/bin"
 
 # ubuntu snap
