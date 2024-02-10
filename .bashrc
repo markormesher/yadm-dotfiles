@@ -28,6 +28,7 @@ function warn {
 PATH=""
 
 # core (more specific first to catch things like Brew packages)
+[ -d "/usr/local/go/bin" ] && PATH="${PATH}:/usr/local/go/bin"
 PATH="${PATH}:/usr/local/sbin"
 PATH="${PATH}:/usr/local/bin"
 PATH="${PATH}:/usr/sbin"
@@ -36,15 +37,14 @@ PATH="${PATH}:/sbin"
 PATH="${PATH}:/bin"
 
 # user-owned binaries
-PATH="${PATH}:${HOME}/go/bin"
-PATH="${PATH}:${HOME}/bin"
+[ -d "${HOME}/go/bin" ] && PATH="${PATH}:${HOME}/go/bin"
+[ -d "${HOME}/bin" ] && PATH="${PATH}:${HOME}/bin"
 
 # ubuntu snap
 [ -d "/snap/bin" ] && PATH="${PATH}:/snap/bin"
 
 # node
-PATH="${PATH}:${HOME}/.npm-packages/bin"
-[ -d "/usr/local/opt/node@16/bin" ] && PATH="${PATH}:/usr/local/opt/node@16/bin"
+[ -d "${HOME}/.npm-packages/bin" ] && PATH="${PATH}:${HOME}/.npm-packages/bin"
 
 export PATH
 
