@@ -13,4 +13,4 @@ keymap.set("n", "<leader>w", "<cmd>:wa<cr>", silent_opts)
 keymap.set("n", "<leader>x", "<cmd>:xa<cr>", silent_opts)
 
 -- type u# followed by a space to insert a uuid
-vim.cmd("inoreabbrev <expr> u# system('uuidgen')->trim()")
+vim.cmd("inoreabbrev <expr> u# system('uuid 2>/dev/null || uuidgen 2>/dev/null || echo No UUID generator installed')->trim()")
