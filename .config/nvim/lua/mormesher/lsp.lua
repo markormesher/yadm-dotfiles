@@ -110,6 +110,7 @@ if (lsp_ok and cmp_nvim_lsp) then
 
   -- go
   lsp.gopls.setup({
+    capabilities = cmp_capabilities,
     on_attach = function()
       vim.api.nvim_create_autocmd("BufWritePre", {
         pattern = { "*.go" },
@@ -125,6 +126,19 @@ if (lsp_ok and cmp_nvim_lsp) then
               end
             end
           end
+          vim.lsp.buf.format({async = false})
+        end
+      })
+    end,
+  })
+
+  -- jsonnet
+  lsp.jsonnet_ls.setup({
+    capabilities = cmp_capabilities,
+    single_file_support = true,
+    on_attach = function(client)
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        callback = function()
           vim.lsp.buf.format({async = false})
         end
       })
