@@ -29,6 +29,7 @@ PATH=""
 
 # core (more specific first to catch things like Brew packages)
 [ -d "/usr/local/go/bin" ] && PATH="${PATH}:/usr/local/go/bin"
+[ -d "/opt/homebrew/bin" ] && PATH="${PATH}:/opt/homebrew/bin"
 PATH="${PATH}:/usr/local/sbin"
 PATH="${PATH}:/usr/local/bin"
 PATH="${PATH}:/usr/sbin"
