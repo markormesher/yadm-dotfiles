@@ -62,6 +62,15 @@ vim.diagnostic.config({
 -- Actual language servers
 --
 
+local mason_ok, mason = check_plugin("mason")
+local mason_lspconfig_ok, mason_lspconfig = check_plugin("mason-lspconfig")
+if (mason_ok and mason_lspconfig_ok) then
+  mason.setup()
+  mason_lspconfig.setup({
+    automatic_install = true,
+  })
+end
+
 local lsp_ok, lsp = check_plugin("lspconfig")
 local cmp_nvim_lsp_ok, cmp_nvim_lsp = check_plugin("cmp_nvim_lsp")
 if (lsp_ok and cmp_nvim_lsp) then

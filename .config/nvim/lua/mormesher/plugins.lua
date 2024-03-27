@@ -14,7 +14,7 @@ end
 local packer_bootstrap = ensure_packer()
 
 require("packer").startup(function(use)
-  use "wbthomason/packer.nvim"
+  use("wbthomason/packer.nvim")
 
   --
   -- UI
@@ -99,6 +99,8 @@ require("packer").startup(function(use)
     end
   })
 
+  use("williamboman/mason.nvim")
+  use("williamboman/mason-lspconfig.nvim")
   use("neovim/nvim-lspconfig")
   use("jose-elias-alvarez/null-ls.nvim")
   use("glepnir/lspsaga.nvim")
