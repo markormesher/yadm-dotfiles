@@ -27,7 +27,7 @@ if (lsp_saga_ok) then
   keymap.set("n", "K", "<cmd>Lspsaga hover_doc<cr>")
 
   -- find definition and uses
-  keymap.set("n", "<leader>f", "<cmd>Lspsaga lsp_finder<cr>")
+  keymap.set("n", "<leader>f", "<cmd>Lspsaga finder<cr>")
 
   -- rename synbol
   keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<cr>")
